@@ -4,7 +4,7 @@ R codes for downloading all dialogue scripts from the famous site Springfield! S
 ## Before you download the code
 This script relies on several packages: `rvest`, `data.table`, `stringr`, and `stringi`. Use `install.packages()` to install them if you haven't had them ready. 
 
-The work flow of this script is simple. Since all scripts are listed in an alphabetical manner (plus 0 at the very beginning), this script will fetch the number of pages of scripts starting with each letter (0 and A-Z). Then it will scrape all titles based on the page information it gets previously. Titles will be used to composite the webpage link of each script. The scripts will be fetched and saved in a designated local disk (as .txt) as a result.
+The work flow of this script is simple. Since all scripts are listed in an alphabetical manner (plus 0 at the very beginning, see this https://www.springfieldspringfield.co.uk/movie_scripts.php), this script will fetch the number of pages of scripts starting with each letter (0 and A-Z) first. Then it will scrape all titles based on the page information it gets previously. Titles will be used to composite the webpage link of each script. The scripts will be fetched and saved in a designated local disk (as .txt) as a result.
 
 ## When you use it
 1. Set up your working directory (where you store the scripts) first.
