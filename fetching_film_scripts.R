@@ -1,6 +1,7 @@
 ########Scraping all scripts from Springfield! Springfield!########
 #https://www.springfieldspringfield.co.uk/movie_scripts.php
 
+
 ####0. preparing necessary packages####
 rm(list = ls())
 setwd("F:/your/working/directory")
@@ -9,8 +10,6 @@ library(stringr)
 library(stringi)
 library(rvest)
 getwd()
-
-
 
 
 ####1. three functions to fetch scripts####
@@ -51,7 +50,6 @@ get_title<- function(first_letter, max_page_number){
 #input: the script titles
 #output: the script
 get_script<- function(title){
-  #first, I need to adjust the title a bit
   print(paste("Scraping the script titled as ", title, sep = ""))
   Sys.sleep(0.1 + runif(1, min = -0.05, max = 0.05))
   title_in_url<- tolower(title) %>%
@@ -64,16 +62,12 @@ get_script<- function(title){
     str_trim(.) %>%
     gsub("\\s+", " ", .) %>%
     gsub(" ", "-", .)
-  #second, I scrape the script
-  #if not successful for certain title, the function will ignore it
-  #and go on. 
   url_script<- paste(url2, 'movie=', title_in_url, sep = '')
   script<- try(
     read_html(url_script) %>%
     html_nodes(., '.scrolling-script-container') %>%
     html_text(.)
     )
-  #lastly I save the script in a local disk
   print("Saving the script in a local disk...")
   file_connection<- file(paste(
     paste(title_in_url, substr(title, start = nchar(title) - 5, 
@@ -81,8 +75,6 @@ get_script<- function(title){
   writeLines(script, file_connection)
   close(file_connection)
   }
-
-
 
 
 ####2. starting fetching####
@@ -104,6 +96,7 @@ title_info<- unlist(title_info)
 #(this step takes the most of the time)
 sapply(title_info, get_script)
 
+
 ####3. report summary table####
 write.csv(data.table(title = title_info, 
            year = substr(title_info, start = nchar(title_info) - 4, 
@@ -123,4 +116,3 @@ write.csv(data.table(title = title_info,
                                           stop = nchar(title_info)), sep = " "), 
                              "txt", sep = ".")), "summary.csv", 
           col.names = FALSE)
-
