@@ -13,7 +13,7 @@ setwd("F:/your/lucky/directory")
 ```
 2. Run the codes. The first step (fetching maximum page) is going to spend you less than one minute; the second step (fetching titles) will take more time (roughly 10 minutes); the last step (downloading scripts) will take your several hours. The time needed will vary in differnt PCs.
 
-3. Note that some of the scripts cannot be fetch because of the irregularity of some script links. In this case the function will return an error stored in the .txt file.
+3. Note that some of the scripts cannot be fetch because of the irregularity of some script links. In this case the function will return an error stored in the .txt file. Among the 22,000 scripts, roughly 200 scripts can't be fetch.
 > Error in open.connection(x, "rb") : HTTP error 404.
 
 4. Sometimes the function will return error 504.
