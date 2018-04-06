@@ -13,13 +13,13 @@ setwd("F:/your/lucky/directory")
 ```
 2. Run the codes. The first step (fetching maximum page) is going to spend you less than one minute; the second step (fetching titles) will take more time (roughly 10 minutes); the last step (downloading scripts) will take your several hours. The time needed will vary in differnt PCs.
 
-3. Note that some of the scripts cannot be fetch because of the irregularity of some script links. In this case the function will return an error message stored in the .txt file. Among the 22,000 scripts, roughly 200 scripts can't be fetch.
+3. Note that some of the scripts will not be fetched because of the irregularity of some script links. In this case the function will return an error message stored in the .txt file. Roughly 200 scripts are not fetched among all ≈ 22,000 scripts,
 > Error in open.connection(x, "rb") : HTTP error 404.
 
 4. Sometimes the function will return error 504.
 > Error in open.connection(x, “rb”) : Timeout was reached
 
-This error happens when the website can not be openned. In this case segmenting the fetching of scripts is recommended. This could be achieved by using the following line repeatly:
+This error happens when the website can not be openned. Hence segmenting the fetching of scripts is recommended. This could be achieved by using the following line repeatly (at the ):
 ```
 sapply(title_info[1:1000], get_script) #fetch the first 1000 scripts
 ```
