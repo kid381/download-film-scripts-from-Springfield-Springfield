@@ -19,9 +19,7 @@ setwd("F:/your/lucky/directory")
 4. Sometimes the function will return error 504.
 > Error in open.connection(x, “rb”) : Timeout was reached
 
-This error happens when the website can not be openned. In this case segmenting the fetching of scripts is recommended. This could be achieved by using:
+This error happens when the website can not be openned. In this case segmenting the fetching of scripts is recommended. This could be achieved by using the following line repeatly:
 ```
-sapply(title_info[1:1000], get_script) #fetch 1000 scripts each time
+sapply(title_info[1:1000], get_script) #fetch the first 1000 scripts
 ```
-
-TO BE CONTINUED
