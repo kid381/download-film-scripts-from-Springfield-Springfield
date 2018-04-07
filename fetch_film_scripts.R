@@ -1,7 +1,6 @@
 ########Scraping all scripts from Springfield! Springfield!########
 #https://www.springfieldspringfield.co.uk/movie_scripts.php
 
-
 ####0. preparing necessary packages####
 rm(list = ls())
 setwd("F:/your/working/directory")
@@ -12,8 +11,9 @@ library(rvest)
 getwd()
 
 
-####1. three functions to fetch scripts####
 
+
+####1. three functions to fetch scripts####
 ##part 1: function to get maximun page number
 #input: a letter
 #output: the maximum page of the scripts starting with letter
@@ -21,17 +21,14 @@ get_page_number<- function(first_letter){
   url_with_letter<- paste(url, "order=", first_letter, sep ="")
   webpage<- read_html(url_with_letter)
   Sys.sleep(0.1 + runif(1, min = -0.05, max = 0.05))
-  # get the number of sub-pages for scripts starting with a certain letter
-  page_number_html<- html_nodes(webpage, '.pagination')
-  # get the number of sub-pages
-  page_number<- html_text(page_number_html)
+  page_number<- html_nodes(webpage, '.pagination') %>%
+    html_text(.)
   page_numbers<-  str_extract_all(page_number, "[0-9]+")[[1]]
   max_page_number<- max(as.numeric(page_numbers))
   print(paste("Fetching the maximum page of scripts starting with ", 
               first_letter, "...", sep = ""))
   return(max_page_number)
   }
-
 ##part 2: function to get all titles starting with a certain letter
 #input: the maximum page of the scripts starting with letter
 #output: all script titles starting with that letter
@@ -42,10 +39,9 @@ get_title<- function(first_letter, max_page_number){
                                  "&page=", x, sep = "")
     webpage<- read_html(url_with_letter_page)
     Sys.sleep(0.1 + runif(1, min = -0.05, max = 0.05))
-    title_html<- html_nodes(webpage, '.script-list-item')
-    title<- html_text(title_html)})
+    title<- html_nodes(webpage, '.script-list-item') %>%
+      html_text(.)})
   titles<- as.vector(Reduce(rbind, titles))}
-  
 ## part 3: to get script for a certain title
 #input: the script titles
 #output: the script
@@ -77,6 +73,8 @@ get_script<- function(title){
   }
 
 
+
+
 ####2. starting fetching####
 first_letter<- c(0, LETTERS)
 url<- 'https://www.springfieldspringfield.co.uk/movie_scripts.php?'
@@ -94,7 +92,10 @@ for (i in 1:length(first_letter)){
 title_info<- unlist(title_info)
 ##fetching script information
 #(this step takes the most of the time)
-sapply(title_info, get_script)
+sapply(title_info, get_script) 
+#change the number of scripts to be fetched if you encounter error 504
+
+
 
 
 ####3. report summary table####
@@ -116,3 +117,4 @@ write.csv(data.table(title = title_info,
                                           stop = nchar(title_info)), sep = " "), 
                              "txt", sep = ".")), "summary.csv", 
           col.names = FALSE)
+
