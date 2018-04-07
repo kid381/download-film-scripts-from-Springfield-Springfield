@@ -16,7 +16,7 @@ setwd("F:/your/lucky/directory")
 3. Note that some of the scripts will not be fetched because of the irregularity of some script links. In this case the function will return an error message stored in the .txt file. Roughly 200 scripts are not fetched among all ≈ 22,000 scripts,
 > Error in open.connection(x, "rb") : HTTP error 404.
 
-4. Sometimes the function will return error 504.
+4. Sometimes the function will return this error:
 > Error in open.connection(x, “rb”) : Timeout was reached
 
 This error happens when the website can not be openned. Hence segmenting the fetching of scripts is recommended. This could be achieved by using the following line repeatly (around Line 100) until you reach the end of `title_info`.
